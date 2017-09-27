@@ -3,6 +3,8 @@
 
 AF_DCMotor camera_trigger(1);
 AF_Stepper focus_stepper(200, 2);
+Servo stage_servo;
+
 String input_string;
 char command_letter;
 int value;
@@ -11,6 +13,7 @@ void setup() {
   Serial.begin(9600);
   Serial.setTimeout(10);
   focus_stepper.setSpeed(5);
+  stage_servo.attach(9);
 }
 
 void trigger_camera(int duration){
@@ -34,6 +37,12 @@ void move_backward(int distance, int step_size){
   focus_stepper.release();
   Serial.print("moved focus forward number of steps: ");
   Serial.println(distance);
+}
+
+void move_stage(int pos){
+  stage_servo.write(pos);
+  Serial.print("moved stage to position: ");
+  Serial.println(pos);
 }
 
 
