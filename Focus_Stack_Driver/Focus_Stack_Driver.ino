@@ -35,7 +35,7 @@ void move_forward(int distance, int step_size){
 void move_backward(int distance, int step_size){
   focus_stepper.step(distance, BACKWARD, step_size);
   focus_stepper.release();
-  Serial.print("moved focus forward number of steps: ");
+  Serial.print("moved focus backward number of steps: ");
   Serial.println(distance);
 }
 
@@ -65,7 +65,7 @@ void loop() {
     } else if (command_letter == 'B' and value > 0){
       move_backward(value, DOUBLE);
     } else if (command_letter == 's' and value >= 0){
-      
+      move_stage(value);
     }
   }
 }
