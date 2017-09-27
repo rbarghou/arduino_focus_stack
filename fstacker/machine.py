@@ -7,6 +7,10 @@ FAST = "FAST"
 SLOW = "SLOW" 
 
 
+class MachineConnectionException(Exception):
+    pass
+
+
 class Machine(object):
 
     def __init__(self):
@@ -19,6 +23,15 @@ class Machine(object):
 
     def close(self):
         self.connection.close()
+
+    def reconnect(self, attempts=3):
+        self.connection.close()
+        for attempt in range(attempts):
+            self.connection = get_connection()
+            time.sleep(2)
+            if self.connection:
+                return
+        raise MachineConnectionException("Could not connect to arduino over usb")
 
     def run_command(self, command):
         self.connection.read_all()
