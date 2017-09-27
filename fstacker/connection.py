@@ -16,9 +16,6 @@ def get_connection(timeout=.2):
             return ser
         except serial.SerialException:
             pass
-        finally:
-            if ser:
-                ser.close()
 
 if "__main__" == __name__:
     print get_connection()
